@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = 'https://uwopus.github.io/'
 languageCode = 'en-us'
 title = 'Opus Build Blog'
 theme = "paper"
