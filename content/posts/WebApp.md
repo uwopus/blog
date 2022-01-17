@@ -9,7 +9,6 @@ https://codepen.io/collection/zxBgew
 
 Next Steps
 -----
-* Buy domain
 * Host website on robot's Raspberry Pi
 * Link all pages together through communication with the robot
 * Incorporate image processing algorithm
