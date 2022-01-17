@@ -7,6 +7,10 @@ draft: false
 The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: 
 https://codepen.io/collection/zxBgew
 
+
+![WebAppScreenshots](WebApp/OpusWebAppScreenshotStates.png)
+
+
 Next Steps
 -----
 * Host website on robot's Raspberry Pi
