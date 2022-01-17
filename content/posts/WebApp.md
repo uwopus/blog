@@ -8,7 +8,7 @@ The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser 
 https://codepen.io/collection/zxBgew
 
 
-![WebAppScreenshots](WebApp/OpusWebAppScreenshotStates.png)
+![WebAppScreenshots](/blog/WebApp/OpusWebAppScreenshotStates.png)
 
 
 Next Steps
