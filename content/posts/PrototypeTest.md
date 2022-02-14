@@ -12,5 +12,5 @@ Today we connected all the electronics, mounted them on the chassis, attached th
 
 Next Steps
 -----
-* Make easier manual control mode for further testing
-* Test controller algorithm
+* Software: Make easier manual control mode for further testing
+* Test controller algorithm, tune as necessary
