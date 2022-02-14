@@ -14,3 +14,4 @@ Next Steps
 -----
 * Software: Make easier manual control mode for further testing
 * Test controller algorithm, tune as necessary
+* Attach and test painting mechanism
