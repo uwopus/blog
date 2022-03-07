@@ -9,7 +9,7 @@ This week, we made a new testing rig with a bigger canvas and a marker, and conn
 
 ![WebAppScreenshots](/blog/WebApp/prototype_test_2_1.png)
 
-![WebAppScreenshots](/blog/WebApp/prototype_test_2_1.png)
+![WebAppScreenshots](/blog/WebApp/prototype_test_2_2.png)
 
 Next Steps
 -----
