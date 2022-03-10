@@ -24,3 +24,6 @@ dtoverlay=spi0-hw-cs
 ```
 
 Success-ish! Now, the logs show up in `dmesg` instead of nothing like before, but it still says `Wrong Wiring?`
+
+## Abandonment
+This solution was abandoned because the `Wrong Wiring?` message was persistent and no solution could be found. The boards were designed to control the Talons with PWM as a fallback, so this approach will be used in the future. 
