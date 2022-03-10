@@ -27,37 +27,10 @@
 </h1><script>let bodyClx=document.body.classList,btnDark=document.querySelector(".btn-dark"),sysDark=window.matchMedia("(prefers-color-scheme: dark)"),darkVal=localStorage.getItem("dark"),setDark=e=>{bodyClx[e?"add":"remove"]("dark"),localStorage.setItem("dark",e?"yes":"no")};setDark(darkVal?darkVal==="yes":sysDark.matches),requestAnimationFrame(()=>bodyClx.remove("not-ready")),btnDark.addEventListener("click",()=>setDark(!bodyClx.contains("dark"))),sysDark.addEventListener("change",e=>setDark(e.matches))</script>
 </header><main class=main>
 <h1 class=main-title>Opus Build Blog: Autonomous Mural Painting Robot</h1><article class=post-entry>
-<h2>Prototype Test 3</h2><time>Mar 6, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/prototypetest3/></a>
-</article><article class=post-entry>
-<h2>Prototype Test 2</h2><time>Feb 27, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/prototypetest2/></a>
-</article><article class=post-entry>
-<h2>Main Board and Pico Communications Revisit</h2><time>Feb 24, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/spi2/></a>
-</article><article class=post-entry>
-<h2>Electronics Mounting</h2><time>Feb 20, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/elecmounting/></a>
-</article><article class=post-entry>
-<h2>Prototype Test 1</h2><time>Feb 13, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/prototypetest/></a>
-</article><article class=post-entry>
-<h2>Prototype Mechanical Redesign</h2><time>Feb 6, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/mech2/></a>
-</article><article class=post-entry>
-<h2>Web App Design</h2><time>Jan 16, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/webapp/></a>
-</article><article class=post-entry>
-<h2>Main Board and Pico Communications</h2><time>Jan 14, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/spi1/></a>
-</article><article class=post-entry>
-<h2>Raspberry Pi Zero Bringup</h2><time>Jan 11, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/zero-bringup/></a>
-</article><article class=post-entry>
-<h2>3D Printing First Prototype</h2><time>Jan 9, 2022</time>
-<a href=https://uwopus.github.io/blog/posts/mech1/></a>
+<h2>Bringing up CAN on a Pi Zero 2</h2><time>Dec 17, 2021</time>
+<a href=https://uwopus.github.io/blog/posts/can-bringup/></a>
 </article><nav class=main-nav>
-<a class=next href=/blog/page/2/>Next Page →</a>
+<a class=prev href=/blog/>← Prev Page</a>
 </nav></main><footer class=footer>
 <p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p>
 <a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a>
