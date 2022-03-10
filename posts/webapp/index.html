@@ -1,7 +1,51 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Web App Design - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: https://codepen.io/collection/zxBgew
-Next Steps  Host website on robot&rsquo;s Raspberry Pi Link all pages together through communication with the robot Incorporate image processing algorithm  "><meta name=author content><link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/app.min.css><link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/an-old-hope.min.css><script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script><link rel=preload as=image href=https://uwopus.github.io/blog/theme.png><link rel=icon href=https://uwopus.github.io/blog/favicon.ico><link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png><meta name=generator content="Hugo 0.85.0"><meta property="og:title" content="Web App Design"><meta property="og:description" content="The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: https://codepen.io/collection/zxBgew
-Next Steps  Host website on robot&rsquo;s Raspberry Pi Link all pages together through communication with the robot Incorporate image processing algorithm  "><meta property="og:type" content="article"><meta property="og:url" content="https://uwopus.github.io/blog/posts/webapp/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-01-16T22:15:51-05:00"><meta property="article:modified_time" content="2022-01-16T22:15:51-05:00"><meta itemprop=name content="Web App Design"><meta itemprop=description content="The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: https://codepen.io/collection/zxBgew
-Next Steps  Host website on robot&rsquo;s Raspberry Pi Link all pages together through communication with the robot Incorporate image processing algorithm  "><meta itemprop=datePublished content="2022-01-16T22:15:51-05:00"><meta itemprop=dateModified content="2022-01-16T22:15:51-05:00"><meta itemprop=wordCount content="56"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="Web App Design"><meta name=twitter:description content="The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: https://codepen.io/collection/zxBgew
-Next Steps  Host website on robot&rsquo;s Raspberry Pi Link all pages together through communication with the robot Incorporate image processing algorithm  "></head><body class=not-ready data-menu=false><header class=header><p class=logo><a class=site-name href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a><a class=btn-dark></a></p><script>let bodyClx=document.body.classList,btnDark=document.querySelector('.btn-dark'),sysDark=window.matchMedia('(prefers-color-scheme: dark)'),darkVal=localStorage.getItem('dark'),setDark=a=>{bodyClx[a?'add':'remove']('dark'),localStorage.setItem('dark',a?'yes':'no')};setDark(darkVal?darkVal==='yes':sysDark.matches),requestAnimationFrame(()=>bodyClx.remove('not-ready')),btnDark.addEventListener('click',()=>setDark(!bodyClx.contains('dark'))),sysDark.addEventListener('change',a=>setDark(a.matches))</script></header><main class=main><article class=post-single><header class=post-title><p><time>:date_medium</time></p><h1>Web App Design</h1></header><section class=post-content><p>The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here:
-<a href=https://codepen.io/collection/zxBgew>https://codepen.io/collection/zxBgew</a></p><p><img src=/blog/WebApp/OpusWebAppScreenshotStates.png alt=WebAppScreenshots></p><h2 id=next-steps>Next Steps</h2><ul><li>Host website on robot&rsquo;s Raspberry Pi</li><li>Link all pages together through communication with the robot</li><li>Incorporate image processing algorithm</li></ul></section><nav class=post-nav><a class=prev href=https://uwopus.github.io/blog/posts/prototypetest/><span>←</span><span>Prototype Test 1</span></a>
-<a class=next href=https://uwopus.github.io/blog/posts/spi1/><span>Main Board and Pico Communications</span><span>→</span></a></nav></article></main><footer class=footer><p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p><a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a></p></footer></body></html>
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>Web App Design - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: https://codepen.io/collection/zxBgew
+Next Steps  Host website on robot&rsquo;s Raspberry Pi Link all pages together through communication with the robot Incorporate image processing algorithm  ">
+<meta name=author content>
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/app.min.css>
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/an-old-hope.min.css>
+<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://uwopus.github.io/blog/theme.png>
+<link rel=icon href=https://uwopus.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.93.3">
+<meta property="og:title" content="Web App Design">
+<meta property="og:description" content="The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: https://codepen.io/collection/zxBgew
+Next Steps  Host website on robot&rsquo;s Raspberry Pi Link all pages together through communication with the robot Incorporate image processing algorithm  ">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://uwopus.github.io/blog/posts/webapp/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-01-16T22:15:51-05:00">
+<meta property="article:modified_time" content="2022-01-16T22:15:51-05:00">
+<meta itemprop=name content="Web App Design">
+<meta itemprop=description content="The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: https://codepen.io/collection/zxBgew
+Next Steps  Host website on robot&rsquo;s Raspberry Pi Link all pages together through communication with the robot Incorporate image processing algorithm  "><meta itemprop=datePublished content="2022-01-16T22:15:51-05:00">
+<meta itemprop=dateModified content="2022-01-16T22:15:51-05:00">
+<meta itemprop=wordCount content="56">
+<meta itemprop=keywords content>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Web App Design">
+<meta name=twitter:description content="The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here: https://codepen.io/collection/zxBgew
+Next Steps  Host website on robot&rsquo;s Raspberry Pi Link all pages together through communication with the robot Incorporate image processing algorithm  ">
+</head><body class=not-ready data-menu=false>
+<header class=header>
+<p class=logo>
+<a class=site-name href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a><a class=btn-dark></a>
+</p><script>let bodyClx=document.body.classList,btnDark=document.querySelector(".btn-dark"),sysDark=window.matchMedia("(prefers-color-scheme: dark)"),darkVal=localStorage.getItem("dark"),setDark=e=>{bodyClx[e?"add":"remove"]("dark"),localStorage.setItem("dark",e?"yes":"no")};setDark(darkVal?darkVal==="yes":sysDark.matches),requestAnimationFrame(()=>bodyClx.remove("not-ready")),btnDark.addEventListener("click",()=>setDark(!bodyClx.contains("dark"))),sysDark.addEventListener("change",e=>setDark(e.matches))</script>
+</header><main class=main>
+<article class=post-single>
+<header class=post-title>
+<p>
+<time>Jan 16, 2022</time>
+</p><h1>Web App Design</h1></header><section class=post-content><p>The Opüs user-facing webapp was coded in pure HTML and CSS for desktop browser view only for now. It was coded in CodePen and each page can be viewed in the collection linked here:
+<a href=https://codepen.io/collection/zxBgew>https://codepen.io/collection/zxBgew</a></p><p><img src=/blog/WebApp/OpusWebAppScreenshotStates.png alt=WebAppScreenshots></p><h2 id=next-steps>Next Steps</h2><ul>
+<li>Host website on robot&rsquo;s Raspberry Pi</li><li>Link all pages together through communication with the robot</li><li>Incorporate image processing algorithm</li></ul></section><nav class=post-nav>
+<a class=prev href=https://uwopus.github.io/blog/posts/prototypetest/><span>←</span><span>Prototype Test 1</span></a>
+<a class=next href=https://uwopus.github.io/blog/posts/spi1/><span>Main Board and Pico Communications</span><span>→</span></a>
+</nav></article></main><footer class=footer>
+<p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p>
+<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a>
+</p></footer></body></html>

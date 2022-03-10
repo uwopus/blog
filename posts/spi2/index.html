@@ -1,38 +1,82 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Main Board and Pico Communications Revisit - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="February 24th, 2022
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>Main Board and Pico Communications Revisit - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="February 24th, 2022
 Today, we found some major issues with the way that the communications was implemented last month.
 Issue Prior to these changes, the high level communications protocol was as follows:
- Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data."><meta name=author content><link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/app.min.css><link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/an-old-hope.min.css><script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script><link rel=preload as=image href=https://uwopus.github.io/blog/theme.png><link rel=icon href=https://uwopus.github.io/blog/favicon.ico><link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png><meta name=generator content="Hugo 0.85.0"><meta property="og:title" content="Main Board and Pico Communications Revisit"><meta property="og:description" content="February 24th, 2022
+ Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data.">
+<meta name=author content>
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/app.min.css>
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/an-old-hope.min.css>
+<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://uwopus.github.io/blog/theme.png>
+<link rel=icon href=https://uwopus.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.93.3">
+<meta property="og:title" content="Main Board and Pico Communications Revisit">
+<meta property="og:description" content="February 24th, 2022
 Today, we found some major issues with the way that the communications was implemented last month.
 Issue Prior to these changes, the high level communications protocol was as follows:
- Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data."><meta property="og:type" content="article"><meta property="og:url" content="https://uwopus.github.io/blog/posts/spi2/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-02-24T20:15:51-05:00"><meta property="article:modified_time" content="2022-02-24T20:15:51-05:00"><meta itemprop=name content="Main Board and Pico Communications Revisit"><meta itemprop=description content="February 24th, 2022
+ Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://uwopus.github.io/blog/posts/spi2/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-02-24T20:15:51-05:00">
+<meta property="article:modified_time" content="2022-02-24T20:15:51-05:00">
+<meta itemprop=name content="Main Board and Pico Communications Revisit">
+<meta itemprop=description content="February 24th, 2022
 Today, we found some major issues with the way that the communications was implemented last month.
 Issue Prior to these changes, the high level communications protocol was as follows:
- Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data."><meta itemprop=datePublished content="2022-02-24T20:15:51-05:00"><meta itemprop=dateModified content="2022-02-24T20:15:51-05:00"><meta itemprop=wordCount content="435"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="Main Board and Pico Communications Revisit"><meta name=twitter:description content="February 24th, 2022
+ Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data."><meta itemprop=datePublished content="2022-02-24T20:15:51-05:00">
+<meta itemprop=dateModified content="2022-02-24T20:15:51-05:00">
+<meta itemprop=wordCount content="435">
+<meta itemprop=keywords content>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Main Board and Pico Communications Revisit">
+<meta name=twitter:description content="February 24th, 2022
 Today, we found some major issues with the way that the communications was implemented last month.
 Issue Prior to these changes, the high level communications protocol was as follows:
- Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data."></head><body class=not-ready data-menu=false><header class=header><p class=logo><a class=site-name href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a><a class=btn-dark></a></p><script>let bodyClx=document.body.classList,btnDark=document.querySelector('.btn-dark'),sysDark=window.matchMedia('(prefers-color-scheme: dark)'),darkVal=localStorage.getItem('dark'),setDark=a=>{bodyClx[a?'add':'remove']('dark'),localStorage.setItem('dark',a?'yes':'no')};setDark(darkVal?darkVal==='yes':sysDark.matches),requestAnimationFrame(()=>bodyClx.remove('not-ready')),btnDark.addEventListener('click',()=>setDark(!bodyClx.contains('dark'))),sysDark.addEventListener('change',a=>setDark(a.matches))</script></header><main class=main><article class=post-single><header class=post-title><p><time>:date_medium</time></p><h1>Main Board and Pico Communications Revisit</h1></header><section class=post-content><p>February 24th, 2022</p><p>Today, we found some major issues with the way that the communications was implemented last month.</p><h2 id=issue>Issue</h2><p>Prior to these changes, the high level communications protocol was as follows:</p><ul><li>Zero sends a command to the Pico</li><li>Pico recieves commands, sends back an ACK/NACK along with any data requested</li></ul><p>This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data. This was verified by using a logic analyzer to view the activity on the bus. When this happened, communications would immediately stall between the Pico and Zero and not recover until another fluke caused the communications to re-establish.</p><h2 id=solution-attempt-1-crc-reset>Solution Attempt 1: CRC Reset</h2><p>The first attempt to solve this problem was to simply implement some kind of error checking on the recieved messages. If the checksum failed, then the Pico would reset to recieve mode until it recieved a valid message. However, there was no way to tell the Pico that the checksum failed as there were not free GPIO pins to establish a side-band communication.</p><h2 id=solution-attempt-2-multicore-and-communication-protocol-change>Solution Attempt 2: Multicore and Communication Protocol Change</h2><p>This attempt involved exploiting the second core of the Raspberry Pi Pico. The control code was moved completely to the second core while the first core exclusively handled communications. Then, we were able to re-design the communication protocol to be much simpler. Instead of a call-and-response methodology where the Zero would request data from the Pico, we created a scheme where all relevant information is sent at a regular interval.</p><p>The Zero would send packets that look like this:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>struct</span> opus_pico_tx_packet {
-    <span style=color:#66d9ef>uint32_t</span> t_ms; <span style=color:#75715e>// sequence number, monotonically increasing until wraparound 
-</span><span style=color:#75715e></span>    <span style=color:#66d9ef>int32_t</span> L_encd_ticks;
-    <span style=color:#66d9ef>float</span> L_cur_vel;
-    <span style=color:#66d9ef>float</span> L_goal_vel;
-    <span style=color:#66d9ef>int32_t</span> R_encd_ticks;
-    <span style=color:#66d9ef>float</span> R_cur_vel;
-    <span style=color:#66d9ef>float</span> R_goal_vel;
-    <span style=color:#66d9ef>struct</span> {
-        <span style=color:#66d9ef>uint8_t</span> state;
-        <span style=color:#66d9ef>uint8_t</span> pad1;
-        <span style=color:#66d9ef>uint8_t</span> pad2;
-        <span style=color:#66d9ef>uint8_t</span> crc;
-    } state_pad_pad_crc;
-} opus_pico_tx_packet_t;
-</code></pre></div><p>This means that the zero would regularly get an update on the full state of the pico, including the calculated velocities of the motors, the current ticks, and the state. The <code>state_pad_pad_crc</code> struct was required to word-align the overall structure.</p><p>The Pico would send packets that look like this:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>struct</span> opus_pico_rx_packet {
-    <span style=color:#66d9ef>uint32_t</span> t_ms; <span style=color:#75715e>// sequence number, monotonically increasing until wraparound 
-</span><span style=color:#75715e></span>    <span style=color:#66d9ef>float</span> L_vel_cmd;
-    <span style=color:#66d9ef>float</span> R_vel_cmd;
-    <span style=color:#66d9ef>uint8_t</span> state_cmd;
-    <span style=color:#66d9ef>uint8_t</span> state_pad[<span style=color:#ae81ff>3</span>];
-    <span style=color:#66d9ef>uint8_t</span> reserved[<span style=color:#ae81ff>15</span>];
-    <span style=color:#66d9ef>uint8_t</span> crc;
-} opus_pico_rx_packet_t;
-</code></pre></div><p>CRC was added so that malformed packets can be rejected. This solution worked very well! The Zero sends commands every 5ms, while the Pico sends state information back every 10ms. This asymmetry is a quirk of the way this was implemented in the code.</p></section><nav class=post-nav><a class=prev href=https://uwopus.github.io/blog/posts/prototypetest2/><span>←</span><span>Prototype Test 2</span></a>
-<a class=next href=https://uwopus.github.io/blog/posts/prototypetest/><span>Prototype Test 1</span><span>→</span></a></nav></article></main><footer class=footer><p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p><a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a></p></footer></body></html>
+ Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data.">
+</head><body class=not-ready data-menu=false>
+<header class=header>
+<p class=logo>
+<a class=site-name href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a><a class=btn-dark></a>
+</p><script>let bodyClx=document.body.classList,btnDark=document.querySelector(".btn-dark"),sysDark=window.matchMedia("(prefers-color-scheme: dark)"),darkVal=localStorage.getItem("dark"),setDark=e=>{bodyClx[e?"add":"remove"]("dark"),localStorage.setItem("dark",e?"yes":"no")};setDark(darkVal?darkVal==="yes":sysDark.matches),requestAnimationFrame(()=>bodyClx.remove("not-ready")),btnDark.addEventListener("click",()=>setDark(!bodyClx.contains("dark"))),sysDark.addEventListener("change",e=>setDark(e.matches))</script>
+</header><main class=main>
+<article class=post-single>
+<header class=post-title>
+<p>
+<time>Feb 24, 2022</time>
+</p><h1>Main Board and Pico Communications Revisit</h1></header><section class=post-content><p>February 24th, 2022</p><p>Today, we found some major issues with the way that the communications was implemented last month.</p><h2 id=issue>Issue</h2><p>Prior to these changes, the high level communications protocol was as follows:</p><ul>
+<li>Zero sends a command to the Pico</li><li>Pico recieves commands, sends back an ACK/NACK along with any data requested</li></ul><p>This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data. This was verified by using a logic analyzer to view the activity on the bus. When this happened, communications would immediately stall between the Pico and Zero and not recover until another fluke caused the communications to re-establish.</p><h2 id=solution-attempt-1-crc-reset>Solution Attempt 1: CRC Reset</h2><p>The first attempt to solve this problem was to simply implement some kind of error checking on the recieved messages. If the checksum failed, then the Pico would reset to recieve mode until it recieved a valid message. However, there was no way to tell the Pico that the checksum failed as there were not free GPIO pins to establish a side-band communication.</p><h2 id=solution-attempt-2-multicore-and-communication-protocol-change>Solution Attempt 2: Multicore and Communication Protocol Change</h2><p>This attempt involved exploiting the second core of the Raspberry Pi Pico. The control code was moved completely to the second core while the first core exclusively handled communications. Then, we were able to re-design the communication protocol to be much simpler. Instead of a call-and-response methodology where the Zero would request data from the Pico, we created a scheme where all relevant information is sent at a regular interval.</p><p>The Zero would send packets that look like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>struct</span> opus_pico_tx_packet {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> t_ms; <span style=color:#75715e>// sequence number, monotonically increasing until wraparound 
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int32_t</span> L_encd_ticks;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span> L_cur_vel;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span> L_goal_vel;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>int32_t</span> R_encd_ticks;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span> R_cur_vel;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span> R_goal_vel;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>struct</span> {
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>uint8_t</span> state;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>uint8_t</span> pad1;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>uint8_t</span> pad2;
+</span></span><span style=display:flex><span>        <span style=color:#66d9ef>uint8_t</span> crc;
+</span></span><span style=display:flex><span>    } state_pad_pad_crc;
+</span></span><span style=display:flex><span>} opus_pico_tx_packet_t;
+</span></span></code></pre></div><p>This means that the zero would regularly get an update on the full state of the pico, including the calculated velocities of the motors, the current ticks, and the state. The <code>state_pad_pad_crc</code> struct was required to word-align the overall structure.</p><p>The Pico would send packets that look like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>struct</span> opus_pico_rx_packet {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> t_ms; <span style=color:#75715e>// sequence number, monotonically increasing until wraparound 
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>float</span> L_vel_cmd;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>float</span> R_vel_cmd;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint8_t</span> state_cmd;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint8_t</span> state_pad[<span style=color:#ae81ff>3</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint8_t</span> reserved[<span style=color:#ae81ff>15</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint8_t</span> crc;
+</span></span><span style=display:flex><span>} opus_pico_rx_packet_t;
+</span></span></code></pre></div><p>CRC was added so that malformed packets can be rejected. This solution worked very well! The Zero sends commands every 5ms, while the Pico sends state information back every 10ms. This asymmetry is a quirk of the way this was implemented in the code.</p></section><nav class=post-nav>
+<a class=prev href=https://uwopus.github.io/blog/posts/prototypetest2/><span>←</span><span>Prototype Test 2</span></a>
+<a class=next href=https://uwopus.github.io/blog/posts/prototypetest/><span>Prototype Test 1</span><span>→</span></a>
+</nav></article></main><footer class=footer>
+<p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p>
+<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a>
+</p></footer></body></html>
