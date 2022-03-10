@@ -1,0 +1,87 @@
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>Pico &lt;-> Motor Interface - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="Purpose C Code had to be written on the Raspberry Pi Pico to interface with the motor controller and interpret the ticks from the encoders.
+PID Commands The Talon SRX expects PID commands with a 1.5ms neutral pulse length, varying up to 2ms for full speed forwards and down to 1ms for full speed backwards. The maximum PWM input frequency is 345Hz. This information is found in the Hardware Manual [1.">
+<meta name=author content>
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/app.min.css>
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/an-old-hope.min.css>
+<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://uwopus.github.io/blog/theme.png>
+<link rel=icon href=https://uwopus.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.93.3">
+<meta property="og:title" content="Pico <-> Motor Interface">
+<meta property="og:description" content="Purpose C Code had to be written on the Raspberry Pi Pico to interface with the motor controller and interpret the ticks from the encoders.
+PID Commands The Talon SRX expects PID commands with a 1.5ms neutral pulse length, varying up to 2ms for full speed forwards and down to 1ms for full speed backwards. The maximum PWM input frequency is 345Hz. This information is found in the Hardware Manual [1.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://uwopus.github.io/blog/posts/motormovement/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-02-04T20:15:51-05:00">
+<meta property="article:modified_time" content="2022-02-04T20:15:51-05:00">
+<meta itemprop=name content="Pico <-> Motor Interface">
+<meta itemprop=description content="Purpose C Code had to be written on the Raspberry Pi Pico to interface with the motor controller and interpret the ticks from the encoders.
+PID Commands The Talon SRX expects PID commands with a 1.5ms neutral pulse length, varying up to 2ms for full speed forwards and down to 1ms for full speed backwards. The maximum PWM input frequency is 345Hz. This information is found in the Hardware Manual [1."><meta itemprop=datePublished content="2022-02-04T20:15:51-05:00">
+<meta itemprop=dateModified content="2022-02-04T20:15:51-05:00">
+<meta itemprop=wordCount content="517">
+<meta itemprop=keywords content>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Pico <-> Motor Interface">
+<meta name=twitter:description content="Purpose C Code had to be written on the Raspberry Pi Pico to interface with the motor controller and interpret the ticks from the encoders.
+PID Commands The Talon SRX expects PID commands with a 1.5ms neutral pulse length, varying up to 2ms for full speed forwards and down to 1ms for full speed backwards. The maximum PWM input frequency is 345Hz. This information is found in the Hardware Manual [1.">
+</head><body class=not-ready data-menu=false>
+<header class=header>
+<p class=logo>
+<a class=site-name href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a><a class=btn-dark></a>
+</p><script>let bodyClx=document.body.classList,btnDark=document.querySelector(".btn-dark"),sysDark=window.matchMedia("(prefers-color-scheme: dark)"),darkVal=localStorage.getItem("dark"),setDark=e=>{bodyClx[e?"add":"remove"]("dark"),localStorage.setItem("dark",e?"yes":"no")};setDark(darkVal?darkVal==="yes":sysDark.matches),requestAnimationFrame(()=>bodyClx.remove("not-ready")),btnDark.addEventListener("click",()=>setDark(!bodyClx.contains("dark"))),sysDark.addEventListener("change",e=>setDark(e.matches))</script>
+</header><main class=main>
+<article class=post-single>
+<header class=post-title>
+<p>
+<time>Feb 4, 2022</time>
+</p><h1>Pico &lt;-> Motor Interface</h1></header><section class=post-content><h2 id=purpose>Purpose</h2><p>C Code had to be written on the Raspberry Pi Pico to interface with the motor controller and interpret the ticks from the encoders.</p><h2 id=pid-commands>PID Commands</h2><p>The Talon SRX expects PID commands with a 1.5ms neutral pulse length, varying up to 2ms for full speed forwards and down to 1ms for full speed backwards. The maximum PWM input frequency is 345Hz. This information is found in the <a href="https://store.ctr-electronics.com/content/user-manual/Talon%20SRX%20User's%20Guide.pdf">Hardware Manual [1.7MB PDF]</a>.</p><p>In order to get the Pico to generate these PWM commands, some configuration needed to be done:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#75715e>// Tell GPIO # They are allocated to the PWM
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>gpio_set_function(GPIO_Pin, GPIO_FUNC_PWM);
+</span></span><span style=display:flex><span><span style=color:#75715e>// Find out which PWM slice is connected to GPIO #
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>uint slice_num <span style=color:#f92672>=</span> pwm_gpio_to_slice_num(GPIO_Pin);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Set the clock division with having wrap as max to get 100Hz
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>pwm_set_clkdiv(slice_num,<span style=color:#ae81ff>19.07f</span>); 
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Set period of # cycles (0 to cycles inclusive)
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>pwm_set_wrap(slice_num, cycles);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>// Set the PWM running
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>pwm_set_enabled(slice_num, true);
+</span></span></code></pre></div><p>The clock division was set to have a 100Hz frequency, while the wrap was set to the maximum to get the most precise granularity on the pulse timing.</p><p>Since the frequency is 100Hz, the mapping from a floating point duty cycle to a count was very easy:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>static</span> <span style=color:#66d9ef>inline</span> <span style=color:#66d9ef>float</span> <span style=color:#a6e22e>map</span>(<span style=color:#66d9ef>float</span> value){ <span style=color:#75715e>// map from -1 - 1 -&gt; 0.1 - 0.2
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>return</span> value <span style=color:#f92672>/</span> <span style=color:#ae81ff>20</span> <span style=color:#f92672>+</span> <span style=color:#ae81ff>0.15</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>The returned number was then multiplied with <code>cycles</code> to generate the correct duty cycle.</p><p>This code was tested and the motor was able to move smoothly between full backwards and full forwards.</p><h2 id=encoder>Encoder</h2><p>The encoder interface was built up using Programmable I/O, a feature unique to the Raspberry Pi Pico. PIO allows programmable state machines to execute assembly-like code independent of the main processor, avoiding use of interrupts for certain applications. More information is available on page 336-342 of the <a href=https://datasheets.raspberrypi.com/rp2040/rp2040-datasheet.pdf>RP2040 Datasheet [4.9MB PDF]</a>. The quadrature encoders were attached to two PIO state machines, which counted the ticks without the use of the main MCU core.</p><p>When the main core needs the count, it can request it by writing a <code>1</code> to the RX FIFO of the particular state machine. When the state machine sees this, it makes available the current count in the TX FIFO. The assembly code for the PIOs was taken from <a href=https://github.com/raspberrypi/pico-examples/tree/f800a7e3031e278062639e070c5764adb4a8a0fc/pio/quadrature_encoder>example code</a> from the Raspberry Pi Foundation.</p><p>Once the code for this scheme was setup correctly, a function was made to get the encoder count as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span>encoder_t <span style=color:#a6e22e>get_encoder_count</span>(side_t side) <span style=color:#75715e>// Side is LEFT_ENCODER or RIGHT_ENCODER
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>{
+</span></span><span style=display:flex><span>    encoder_t tick_time;
+</span></span><span style=display:flex><span>    tick_time.ticks <span style=color:#f92672>=</span> <span style=color:#ae81ff>0</span>; <span style=color:#75715e>// defaults to 0 if no response
+</span></span></span><span style=display:flex><span><span style=color:#75715e></span>    tick_time.time <span style=color:#f92672>=</span> nil_time;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (side <span style=color:#f92672>==</span> LEFT)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        tick_time.ticks <span style=color:#f92672>=</span> quadrature_encoder_get_count(PIO_LEFT,PIO_SM_LEFT);
+</span></span><span style=display:flex><span>        tick_time.time <span style=color:#f92672>=</span> get_absolute_time();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span> <span style=color:#66d9ef>if</span> (side <span style=color:#f92672>==</span> RIGHT)
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        tick_time.ticks <span style=color:#f92672>=</span> quadrature_encoder_get_count(PIO_RIGHT,PIO_SM_RIGHT);
+</span></span><span style=display:flex><span>        tick_time.time <span style=color:#f92672>=</span> get_absolute_time();
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>else</span>
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        printf(<span style=color:#e6db74>&#34;WARNING: No support for get encoder count for side &lt;%d&gt;&#34;</span>,side);
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> tick_time;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>This system worked, and we were able to get the encoder counts quite easily!</p><h2 id=integration-with-communications>Integration with Communications</h2><p>The data and commands were integrated with communications and we were able to retrieve counts from the Pico over SPI, as well as send commands. With a constant speed, the encoder counts looked correct:</p><p><img src=/blog/images/motorMove/encoderTicksVTime.png alt=EncodervTime></p></section><nav class=post-nav>
+<a class=prev href=https://uwopus.github.io/blog/posts/mech2/><span>←</span><span>Prototype Mechanical Redesign</span></a>
+<a class=next href=https://uwopus.github.io/blog/posts/webapp/><span>Web App Design</span><span>→</span></a>
+</nav></article></main><footer class=footer>
+<p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p>
+<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a>
+</p></footer></body></html>

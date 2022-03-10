@@ -3,8 +3,7 @@
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<title>Main Board and Pico Communications Revisit - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="February 24th, 2022
-Today, we found some major issues with the way that the communications was implemented last month.
+<title>Main Board and Pico Communications Revisit - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="Today, we found some major issues with the way that the communications was implemented last month.
 Issue Prior to these changes, the high level communications protocol was as follows:
  Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data.">
 <meta name=author content>
@@ -16,8 +15,7 @@ Issue Prior to these changes, the high level communications protocol was as foll
 <link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png>
 <meta name=generator content="Hugo 0.93.3">
 <meta property="og:title" content="Main Board and Pico Communications Revisit">
-<meta property="og:description" content="February 24th, 2022
-Today, we found some major issues with the way that the communications was implemented last month.
+<meta property="og:description" content="Today, we found some major issues with the way that the communications was implemented last month.
 Issue Prior to these changes, the high level communications protocol was as follows:
  Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data.">
 <meta property="og:type" content="article">
@@ -25,17 +23,15 @@ Issue Prior to these changes, the high level communications protocol was as foll
 <meta property="article:published_time" content="2022-02-24T20:15:51-05:00">
 <meta property="article:modified_time" content="2022-02-24T20:15:51-05:00">
 <meta itemprop=name content="Main Board and Pico Communications Revisit">
-<meta itemprop=description content="February 24th, 2022
-Today, we found some major issues with the way that the communications was implemented last month.
+<meta itemprop=description content="Today, we found some major issues with the way that the communications was implemented last month.
 Issue Prior to these changes, the high level communications protocol was as follows:
  Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data."><meta itemprop=datePublished content="2022-02-24T20:15:51-05:00">
 <meta itemprop=dateModified content="2022-02-24T20:15:51-05:00">
-<meta itemprop=wordCount content="435">
+<meta itemprop=wordCount content="432">
 <meta itemprop=keywords content>
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Main Board and Pico Communications Revisit">
-<meta name=twitter:description content="February 24th, 2022
-Today, we found some major issues with the way that the communications was implemented last month.
+<meta name=twitter:description content="Today, we found some major issues with the way that the communications was implemented last month.
 Issue Prior to these changes, the high level communications protocol was as follows:
  Zero sends a command to the Pico Pico recieves commands, sends back an ACK/NACK along with any data requested  This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data.">
 </head><body class=not-ready data-menu=false>
@@ -48,7 +44,7 @@ Issue Prior to these changes, the high level communications protocol was as foll
 <header class=post-title>
 <p>
 <time>Feb 24, 2022</time>
-</p><h1>Main Board and Pico Communications Revisit</h1></header><section class=post-content><p>February 24th, 2022</p><p>Today, we found some major issues with the way that the communications was implemented last month.</p><h2 id=issue>Issue</h2><p>Prior to these changes, the high level communications protocol was as follows:</p><ul>
+</p><h1>Main Board and Pico Communications Revisit</h1></header><section class=post-content><p>Today, we found some major issues with the way that the communications was implemented last month.</p><h2 id=issue>Issue</h2><p>Prior to these changes, the high level communications protocol was as follows:</p><ul>
 <li>Zero sends a command to the Pico</li><li>Pico recieves commands, sends back an ACK/NACK along with any data requested</li></ul><p>This scheme was highly dependent on the states being synchronized between the Pico and the Zero. If a message was missed, both the Pico and Zero would be expecting to receive data. This was verified by using a logic analyzer to view the activity on the bus. When this happened, communications would immediately stall between the Pico and Zero and not recover until another fluke caused the communications to re-establish.</p><h2 id=solution-attempt-1-crc-reset>Solution Attempt 1: CRC Reset</h2><p>The first attempt to solve this problem was to simply implement some kind of error checking on the recieved messages. If the checksum failed, then the Pico would reset to recieve mode until it recieved a valid message. However, there was no way to tell the Pico that the checksum failed as there were not free GPIO pins to establish a side-band communication.</p><h2 id=solution-attempt-2-multicore-and-communication-protocol-change>Solution Attempt 2: Multicore and Communication Protocol Change</h2><p>This attempt involved exploiting the second core of the Raspberry Pi Pico. The control code was moved completely to the second core while the first core exclusively handled communications. Then, we were able to re-design the communication protocol to be much simpler. Instead of a call-and-response methodology where the Zero would request data from the Pico, we created a scheme where all relevant information is sent at a regular interval.</p><p>The Zero would send packets that look like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:#66d9ef>typedef</span> <span style=color:#66d9ef>struct</span> opus_pico_tx_packet {
 </span></span><span style=display:flex><span>    <span style=color:#66d9ef>uint32_t</span> t_ms; <span style=color:#75715e>// sequence number, monotonically increasing until wraparound 
 </span></span></span><span style=display:flex><span><span style=color:#75715e></span>    <span style=color:#66d9ef>int32_t</span> L_encd_ticks;

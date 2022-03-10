@@ -1,0 +1,50 @@
+<!doctype html><html lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>Raspberry Pi Pico Bringup - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="Purpose The Raspberry Pi Pico is responsible for reading the encoder values from the motors while providing PWM values to the Talon SRXs. The board has two JST XH connectors to connect to the two encoders, and two three pin headers for PWM output. The board also has some status LEDs, a SPI communication port, a SWD interface for debugging and five general purpose input/outputs for future use.
+The following photo is the 3D view from KiCAD of the board.">
+<meta name=author content>
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/app.min.css>
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/an-old-hope.min.css>
+<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://uwopus.github.io/blog/theme.png>
+<link rel=icon href=https://uwopus.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.93.3">
+<meta property="og:title" content="Raspberry Pi Pico Bringup">
+<meta property="og:description" content="Purpose The Raspberry Pi Pico is responsible for reading the encoder values from the motors while providing PWM values to the Talon SRXs. The board has two JST XH connectors to connect to the two encoders, and two three pin headers for PWM output. The board also has some status LEDs, a SPI communication port, a SWD interface for debugging and five general purpose input/outputs for future use.
+The following photo is the 3D view from KiCAD of the board.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://uwopus.github.io/blog/posts/picobringup/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-01-13T20:15:51-05:00">
+<meta property="article:modified_time" content="2022-01-13T20:15:51-05:00">
+<meta itemprop=name content="Raspberry Pi Pico Bringup">
+<meta itemprop=description content="Purpose The Raspberry Pi Pico is responsible for reading the encoder values from the motors while providing PWM values to the Talon SRXs. The board has two JST XH connectors to connect to the two encoders, and two three pin headers for PWM output. The board also has some status LEDs, a SPI communication port, a SWD interface for debugging and five general purpose input/outputs for future use.
+The following photo is the 3D view from KiCAD of the board."><meta itemprop=datePublished content="2022-01-13T20:15:51-05:00">
+<meta itemprop=dateModified content="2022-01-13T20:15:51-05:00">
+<meta itemprop=wordCount content="191">
+<meta itemprop=keywords content>
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Raspberry Pi Pico Bringup">
+<meta name=twitter:description content="Purpose The Raspberry Pi Pico is responsible for reading the encoder values from the motors while providing PWM values to the Talon SRXs. The board has two JST XH connectors to connect to the two encoders, and two three pin headers for PWM output. The board also has some status LEDs, a SPI communication port, a SWD interface for debugging and five general purpose input/outputs for future use.
+The following photo is the 3D view from KiCAD of the board.">
+</head><body class=not-ready data-menu=false>
+<header class=header>
+<p class=logo>
+<a class=site-name href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a><a class=btn-dark></a>
+</p><script>let bodyClx=document.body.classList,btnDark=document.querySelector(".btn-dark"),sysDark=window.matchMedia("(prefers-color-scheme: dark)"),darkVal=localStorage.getItem("dark"),setDark=e=>{bodyClx[e?"add":"remove"]("dark"),localStorage.setItem("dark",e?"yes":"no")};setDark(darkVal?darkVal==="yes":sysDark.matches),requestAnimationFrame(()=>bodyClx.remove("not-ready")),btnDark.addEventListener("click",()=>setDark(!bodyClx.contains("dark"))),sysDark.addEventListener("change",e=>setDark(e.matches))</script>
+</header><main class=main>
+<article class=post-single>
+<header class=post-title>
+<p>
+<time>Jan 13, 2022</time>
+</p><h1>Raspberry Pi Pico Bringup</h1></header><section class=post-content><h2 id=purpose>Purpose</h2><p>The Raspberry Pi Pico is responsible for reading the encoder values from the motors while providing PWM values to the Talon SRXs. The board has two JST XH connectors to connect to the two encoders, and two three pin headers for PWM output. The board also has some status LEDs, a SPI communication port, a SWD interface for debugging and five general purpose input/outputs for future use.</p><p>The following photo is the 3D view from KiCAD of the board.</p><p><img src=/blog/images/pico/pico3D.jpg alt=Pico3D></p><h2 id=soldering>Soldering</h2><p>The various components of this board were soldered to facilitate testing. This photo shows the complete product:</p><p><img src=/blog/images/pico/soldered.jpg alt=PicoSoldered></p><h2 id=toolchain>Toolchain</h2><p>Once the board was soldered, the toolchain to work with the Pico was installed. For the most part, setting stuff up for the Pico was a breeze. We just followed the instructions in the <a href=https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf>Getting Started Guide [33MB PDF]</a> and it worked out of the box for Linux. For Windows, however, some special steps needed to be taken:</p><ol>
+<li>The path length maximum needed to be increased, following directions from <a href=https://stackoverflow.com/questions/1880321/why-does-the-260-character-path-length-limit-exist-in-windows>Stack Overflow</a>.</li><li>CMake had to be started via the Visual Studio console.</li></ol><p>Other than that, the instructions in the Getting Started guide held.</p></section><nav class=post-nav>
+<a class=prev href=https://uwopus.github.io/blog/posts/spi1/><span>←</span><span>Main Board and Pico Communications</span></a>
+<a class=next href=https://uwopus.github.io/blog/posts/zero-bringup/><span>Raspberry Pi Zero Bringup</span><span>→</span></a>
+</nav></article></main><footer class=footer>
+<p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p>
+<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a>
+</p></footer></body></html>
