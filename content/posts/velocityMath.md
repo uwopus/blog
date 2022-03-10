@@ -1,7 +1,7 @@
 ---
 title: "Velocity Math"
 date: 2022-03-04T22:15:51-05:00
-draft: true
+draft: false
 ---
 
 

@@ -4,8 +4,6 @@ date: 2022-02-24T20:15:51-05:00
 draft: false
 ---
 
-February 24th, 2022
-
 Today, we found some major issues with the way that the communications was implemented last month. 
 
 ## Issue

@@ -1,10 +1,8 @@
 ---
 title: "Main Board and Pico Communications"
-date: 2022-01-14T20:15:51-05:00
+date: 2022-01-18T20:15:51-05:00
 draft: false
 ---
-
-January 14th, 2022
 
 This week we've been waiting for our Talon SRX Motor Controllers generously lended from Team 1325. While we wait for them to get here from Mississauga, we decided to get the Pico board in a position where we can plug in the motor controllers as soon as they arrive and begin turning them. 
 
@@ -56,3 +54,7 @@ Direct Memory Access was then attempted. This approach involved setting up the P
 5. Processor clears the interrupt and re-enables DMA, returning to normal tasks
 
 This methodology worked! We were able to transfer packets that were legible from both sides. 
+
+These attempts were recorded with a Saleae Logic Analyzer to debug issues that happened along the way. This is a photo of the communications working properly: 
+
+![SPIComms](/blog/images/spi1/saleaeComms.png)
