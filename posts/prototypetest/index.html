@@ -1,50 +1,51 @@
-<!doctype html><html lang=en-us>
+<!doctype html><html class="not-ready lg:text-base" style=--bg:#faf8f1 lang=en-us>
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<title>Prototype Test 1 - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="Today we connected all the electronics, mounted them on the chassis, attached the prototype system to our testing rig and powered on. After a bit of debugging, it succesfully moved! Both motors are now able to reel the rope in and out to travel up and down the canvas at an arbitrarily set speed.
-Next Steps  Software: Make easier manual control mode for further testing Test controller algorithm, tune as necessary Attach and test painting mechanism  ">
-<meta name=author content>
-<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/app.min.css>
-<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/an-old-hope.min.css>
-<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<title>Prototype Test 1 - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=theme-color>
+<meta name=description content="We connected the electronics, mounted them on the chassis and mounted the robot on two hooks at corners of a canvas. With some troubleshooting, we were successfuly able to move the robot! Both motors can reel the rope in and out at arbitrary speeds. Now, we can use this platform to develop the control algorithm. Our plan is to make a manually driven mode that can be used with a controller to get an intuitive feel for the dynamics and capabilities of the platform as well as to reset the position of the device between subsequent trials of the control algorithm.">
+<meta name=author content="Opus Build Blog: Autonomous Mural Painting Robot">
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/main.min.css>
 <link rel=preload as=image href=https://uwopus.github.io/blog/theme.png>
+<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://uwopus.github.io/blog/favicon.ico>
 <link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png>
 <meta name=generator content="Hugo 0.93.3">
+<meta itemprop=name content="Prototype Test 1">
+<meta itemprop=description content="We connected the electronics, mounted them on the chassis and mounted the robot on two hooks at corners of a canvas. With some troubleshooting, we were successfuly able to move the robot! Both motors can reel the rope in and out at arbitrary speeds. Now, we can use this platform to develop the control algorithm. Our plan is to make a manually driven mode that can be used with a controller to get an intuitive feel for the dynamics and capabilities of the platform as well as to reset the position of the device between subsequent trials of the control algorithm."><meta itemprop=datePublished content="2022-02-13T22:15:51-05:00">
+<meta itemprop=dateModified content="2022-02-13T22:15:51-05:00">
+<meta itemprop=wordCount content="173">
+<meta itemprop=keywords content>
 <meta property="og:title" content="Prototype Test 1">
-<meta property="og:description" content="Today we connected all the electronics, mounted them on the chassis, attached the prototype system to our testing rig and powered on. After a bit of debugging, it succesfully moved! Both motors are now able to reel the rope in and out to travel up and down the canvas at an arbitrarily set speed.
-Next Steps  Software: Make easier manual control mode for further testing Test controller algorithm, tune as necessary Attach and test painting mechanism  ">
+<meta property="og:description" content="We connected the electronics, mounted them on the chassis and mounted the robot on two hooks at corners of a canvas. With some troubleshooting, we were successfuly able to move the robot! Both motors can reel the rope in and out at arbitrary speeds. Now, we can use this platform to develop the control algorithm. Our plan is to make a manually driven mode that can be used with a controller to get an intuitive feel for the dynamics and capabilities of the platform as well as to reset the position of the device between subsequent trials of the control algorithm.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://uwopus.github.io/blog/posts/prototypetest/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2022-02-13T22:15:51-05:00">
 <meta property="article:modified_time" content="2022-02-13T22:15:51-05:00">
-<meta itemprop=name content="Prototype Test 1">
-<meta itemprop=description content="Today we connected all the electronics, mounted them on the chassis, attached the prototype system to our testing rig and powered on. After a bit of debugging, it succesfully moved! Both motors are now able to reel the rope in and out to travel up and down the canvas at an arbitrarily set speed.
-Next Steps  Software: Make easier manual control mode for further testing Test controller algorithm, tune as necessary Attach and test painting mechanism  "><meta itemprop=datePublished content="2022-02-13T22:15:51-05:00">
-<meta itemprop=dateModified content="2022-02-13T22:15:51-05:00">
-<meta itemprop=wordCount content="76">
-<meta itemprop=keywords content>
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Prototype Test 1">
-<meta name=twitter:description content="Today we connected all the electronics, mounted them on the chassis, attached the prototype system to our testing rig and powered on. After a bit of debugging, it succesfully moved! Both motors are now able to reel the rope in and out to travel up and down the canvas at an arbitrarily set speed.
-Next Steps  Software: Make easier manual control mode for further testing Test controller algorithm, tune as necessary Attach and test painting mechanism  ">
-</head><body class=not-ready data-menu=false>
-<header class=header>
-<p class=logo>
-<a class=site-name href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a><a class=btn-dark></a>
-</p><script>let bodyClx=document.body.classList,btnDark=document.querySelector(".btn-dark"),sysDark=window.matchMedia("(prefers-color-scheme: dark)"),darkVal=localStorage.getItem("dark"),setDark=e=>{bodyClx[e?"add":"remove"]("dark"),localStorage.setItem("dark",e?"yes":"no")};setDark(darkVal?darkVal==="yes":sysDark.matches),requestAnimationFrame(()=>bodyClx.remove("not-ready")),btnDark.addEventListener("click",()=>setDark(!bodyClx.contains("dark"))),sysDark.addEventListener("change",e=>setDark(e.matches))</script>
-</header><main class=main>
-<article class=post-single>
-<header class=post-title>
-<p>
+<meta name=twitter:description content="We connected the electronics, mounted them on the chassis and mounted the robot on two hooks at corners of a canvas. With some troubleshooting, we were successfuly able to move the robot! Both motors can reel the rope in and out at arbitrary speeds. Now, we can use this platform to develop the control algorithm. Our plan is to make a manually driven mode that can be used with a controller to get an intuitive feel for the dynamics and capabilities of the platform as well as to reset the position of the device between subsequent trials of the control algorithm.">
+<link rel=canonical href=https://uwopus.github.io/blog/posts/prototypetest/>
+</head><body class="text-black duration-200 ease-out dark:text-white">
+<header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+<div class="relative z-50 mr-auto flex items-center">
+<a class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold" href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a>
+<div class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf8f1".replace(/"/g,''),setDark=e=>{metaTheme.setAttribute("content",e?"#000":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script>
+<div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none">
+</div></header><main class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert">
+<article>
+<header class=mb-16>
+<h1 class="!my-0 pb-2.5">Prototype Test 1</h1><div class="text-sm antialiased opacity-60">
 <time>Feb 13, 2022</time>
-</p><h1>Prototype Test 1</h1></header><section class=post-content><p>Today we connected all the electronics, mounted them on the chassis, attached the prototype system to our testing rig and powered on. After a bit of debugging, it succesfully moved! Both motors are now able to reel the rope in and out to travel up and down the canvas at an arbitrarily set speed.</p><p><img src=/blog/WebApp/PrototypeRiggedTest.png alt=WebAppScreenshots></p><h2 id=next-steps>Next Steps</h2><ul>
-<li>Software: Make easier manual control mode for further testing</li><li>Test controller algorithm, tune as necessary</li><li>Attach and test painting mechanism</li></ul></section><nav class=post-nav>
-<a class=prev href=https://uwopus.github.io/blog/posts/elecmounting/><span>←</span><span>Electronics Mounting</span></a>
-<a class=next href=https://uwopus.github.io/blog/posts/mech2/><span>Prototype Mechanical Redesign</span><span>→</span></a>
-</nav></article></main><footer class=footer>
-<p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p>
-<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a>
-</p></footer></body></html>
+</div></header><section><p>We connected the electronics, mounted them on the chassis and mounted the robot on two hooks at corners of a canvas. With some troubleshooting, we were successfuly able to move the robot! Both motors can reel the rope in and out at arbitrary speeds. Now, we can use this platform to develop the control algorithm. Our plan is to make a manually driven mode that can be used with a controller to get an intuitive feel for the dynamics and capabilities of the platform as well as to reset the position of the device between subsequent trials of the control algorithm.</p><p>Note the duct-taped on Raspberry Pi, and the absence of fuses on the main control board. These were done to accelerate our testing as we await some parts from Digikey (fuse holders, a 40 pin female header for the Pi). We will add these when they come in!</p><p><img src=/blog/images/prototypes/PrototypeRiggedTest.png alt=prototype_rigged></p><h2 id=next-steps>Next Steps</h2><ul>
+<li>Software: Make easier manual control mode for further testing</li><li>Test automatic controller algorithm and tune as necessary</li><li>Attach and test painting mechanism</li></ul></section><nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+<a class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://uwopus.github.io/blog/posts/elecmounting/><span class=mr-1.5>←</span><span>Electronics Mounting</span></a>
+<a class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://uwopus.github.io/blog/posts/mech2/><span>Prototype Mechanical Redesign</span><span class=ml-1.5>→</span></a>
+</nav></article></main><footer class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60">
+<div class=mr-auto>
+&copy; 2023
+<a class=link href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a>
+</div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>Powered by Hugo️️</a>️
+<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>✎ Paper</a>
+</footer></body></html>

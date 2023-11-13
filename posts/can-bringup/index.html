@@ -1,48 +1,53 @@
-<!doctype html><html lang=en-us>
+<!doctype html><html class="not-ready lg:text-base" style=--bg:#faf8f1 lang=en-us>
 <head>
 <meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
-<title>Bringing up CAN on a Pi Zero 2 - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=description content="The Problem Most guides online to enable CAN with SocketCAN on the Raspberry Pi, it is assumed that the MCP2515 is used. This chip is extremely popular, but because of the supply chain issues stemming from COVID-19, it is also very hard to find. When we ordered the components for Opus&rsquo;s main board, we were lucky enough to find some MCP 2510 chips in stock on Digikey. Since the Linux driver is called mcp251x, we assumed that it would be pretty easy to setup!">
-<meta name=author content>
-<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/app.min.css>
-<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/an-old-hope.min.css>
-<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<title>Bringing up CAN on a Pi Zero 2 - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=theme-color>
+<meta name=description content="The Problem Most guides online to enable CAN with SocketCAN on the Raspberry Pi, it is assumed that the MCP2515 is used. This chip is extremely popular, but because of the supply chain issues stemming from COVID-19, it is also very hard to find. When we ordered the components for Opus&rsquo;s main board, we were lucky enough to find some MCP 2510 chips in stock on Digikey. Since the Linux driver is called mcp251x, we assumed that it would be pretty easy to setup!">
+<meta name=author content="Opus Build Blog: Autonomous Mural Painting Robot">
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/main.min.css>
 <link rel=preload as=image href=https://uwopus.github.io/blog/theme.png>
+<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://uwopus.github.io/blog/favicon.ico>
 <link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png>
 <meta name=generator content="Hugo 0.93.3">
+<meta itemprop=name content="Bringing up CAN on a Pi Zero 2">
+<meta itemprop=description content="The Problem Most guides online to enable CAN with SocketCAN on the Raspberry Pi, it is assumed that the MCP2515 is used. This chip is extremely popular, but because of the supply chain issues stemming from COVID-19, it is also very hard to find. When we ordered the components for Opus&rsquo;s main board, we were lucky enough to find some MCP 2510 chips in stock on Digikey. Since the Linux driver is called mcp251x, we assumed that it would be pretty easy to setup!"><meta itemprop=datePublished content="2021-12-17T22:15:51-05:00">
+<meta itemprop=dateModified content="2021-12-17T22:15:51-05:00">
+<meta itemprop=wordCount content="249">
+<meta itemprop=keywords content>
 <meta property="og:title" content="Bringing up CAN on a Pi Zero 2">
 <meta property="og:description" content="The Problem Most guides online to enable CAN with SocketCAN on the Raspberry Pi, it is assumed that the MCP2515 is used. This chip is extremely popular, but because of the supply chain issues stemming from COVID-19, it is also very hard to find. When we ordered the components for Opus&rsquo;s main board, we were lucky enough to find some MCP 2510 chips in stock on Digikey. Since the Linux driver is called mcp251x, we assumed that it would be pretty easy to setup!">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://uwopus.github.io/blog/posts/can-bringup/"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2021-12-17T22:15:51-05:00">
 <meta property="article:modified_time" content="2021-12-17T22:15:51-05:00">
-<meta itemprop=name content="Bringing up CAN on a Pi Zero 2">
-<meta itemprop=description content="The Problem Most guides online to enable CAN with SocketCAN on the Raspberry Pi, it is assumed that the MCP2515 is used. This chip is extremely popular, but because of the supply chain issues stemming from COVID-19, it is also very hard to find. When we ordered the components for Opus&rsquo;s main board, we were lucky enough to find some MCP 2510 chips in stock on Digikey. Since the Linux driver is called mcp251x, we assumed that it would be pretty easy to setup!"><meta itemprop=datePublished content="2021-12-17T22:15:51-05:00">
-<meta itemprop=dateModified content="2021-12-17T22:15:51-05:00">
-<meta itemprop=wordCount content="249">
-<meta itemprop=keywords content>
 <meta name=twitter:card content="summary">
 <meta name=twitter:title content="Bringing up CAN on a Pi Zero 2">
 <meta name=twitter:description content="The Problem Most guides online to enable CAN with SocketCAN on the Raspberry Pi, it is assumed that the MCP2515 is used. This chip is extremely popular, but because of the supply chain issues stemming from COVID-19, it is also very hard to find. When we ordered the components for Opus&rsquo;s main board, we were lucky enough to find some MCP 2510 chips in stock on Digikey. Since the Linux driver is called mcp251x, we assumed that it would be pretty easy to setup!">
-</head><body class=not-ready data-menu=false>
-<header class=header>
-<p class=logo>
-<a class=site-name href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a><a class=btn-dark></a>
-</p><script>let bodyClx=document.body.classList,btnDark=document.querySelector(".btn-dark"),sysDark=window.matchMedia("(prefers-color-scheme: dark)"),darkVal=localStorage.getItem("dark"),setDark=e=>{bodyClx[e?"add":"remove"]("dark"),localStorage.setItem("dark",e?"yes":"no")};setDark(darkVal?darkVal==="yes":sysDark.matches),requestAnimationFrame(()=>bodyClx.remove("not-ready")),btnDark.addEventListener("click",()=>setDark(!bodyClx.contains("dark"))),sysDark.addEventListener("change",e=>setDark(e.matches))</script>
-</header><main class=main>
-<article class=post-single>
-<header class=post-title>
-<p>
+<link rel=canonical href=https://uwopus.github.io/blog/posts/can-bringup/>
+</head><body class="text-black duration-200 ease-out dark:text-white">
+<header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+<div class="relative z-50 mr-auto flex items-center">
+<a class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold" href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a>
+<div class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf8f1".replace(/"/g,''),setDark=e=>{metaTheme.setAttribute("content",e?"#000":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script>
+<div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none">
+</div></header><main class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert">
+<article>
+<header class=mb-16>
+<h1 class="!my-0 pb-2.5">Bringing up CAN on a Pi Zero 2</h1><div class="text-sm antialiased opacity-60">
 <time>Dec 17, 2021</time>
-</p><h1>Bringing up CAN on a Pi Zero 2</h1></header><section class=post-content><h2 id=the-problem>The Problem</h2><p><a href=https://www.beyondlogic.org/adding-can-controller-area-network-to-the-raspberry-pi/>Most</a> <a href=https://www.hackster.io/youness/how-to-connect-raspberry-pi-to-can-bus-b60235>guides</a> online to enable CAN with SocketCAN on the Raspberry Pi, it is assumed that the MCP2515 is used. This chip is <em>extremely</em> popular, but because of the supply chain issues stemming from COVID-19, it is also very hard to find. When we ordered the components for Opus&rsquo;s main board, we were lucky enough to find some <a href=https://www.microchip.com/en-us/product/MCP2510>MCP 2510</a> chips in stock on Digikey. Since the Linux driver is called <code>mcp251x</code>, we assumed that it would be pretty easy to setup!</p><h2 id=solution-wip>Solution (WIP)</h2><p>Thought that just using the instructions from the aforementioned blog posts would work, just needed to change the <code>mcp2515</code> to <code>mcp2510</code>. This was really naive since the overlay just didn&rsquo;t exist. Figured out that you can decompile <code>.dtbo</code> files from <a href=https://stackoverflow.com/questions/21670967/how-to-compile-dts-linux-device-tree-source-files-to-dtb>this</a> post.</p><p>So, we used this process:</p><ol>
+</div></header><section><h2 id=the-problem>The Problem</h2><p><a href=https://www.beyondlogic.org/adding-can-controller-area-network-to-the-raspberry-pi/>Most</a> <a href=https://www.hackster.io/youness/how-to-connect-raspberry-pi-to-can-bus-b60235>guides</a> online to enable CAN with SocketCAN on the Raspberry Pi, it is assumed that the MCP2515 is used. This chip is <em>extremely</em> popular, but because of the supply chain issues stemming from COVID-19, it is also very hard to find. When we ordered the components for Opus&rsquo;s main board, we were lucky enough to find some <a href=https://www.microchip.com/en-us/product/MCP2510>MCP 2510</a> chips in stock on Digikey. Since the Linux driver is called <code>mcp251x</code>, we assumed that it would be pretty easy to setup!</p><h2 id=solution-wip>Solution (WIP)</h2><p>Thought that just using the instructions from the aforementioned blog posts would work, just needed to change the <code>mcp2515</code> to <code>mcp2510</code>. This was really naive since the overlay just didn&rsquo;t exist. Figured out that you can decompile <code>.dtbo</code> files from <a href=https://stackoverflow.com/questions/21670967/how-to-compile-dts-linux-device-tree-source-files-to-dtb>this</a> post.</p><p>So, we used this process:</p><ol>
 <li>Decompile the <code>/boot/overlays/mcp2515-can0.dtbo</code> file with <code>dtc -I dtb -O dts mcp2515-can0.dtbo > mcp2515-can0.dts</code></li><li>Make a copy of the dtc file called <code>mcp2510-can0.dts</code></li><li>Replace all mentions of <code>mcp2515</code> with <code>mcp2510</code> in that file.</li><li>Recompile this with <code>dtc -O dtb -o mcp2510-can0.dtbo mcp2510-can0.dts</code></li></ol><p>Put it in <code>/boot/overlays</code> and edit the <code>/boot/config.txt</code> file to have the following lines:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>dtoverlay<span style=color:#f92672>=</span>mcp2510-can0,oscillator<span style=color:#f92672>=</span>8000000,interrupt<span style=color:#f92672>=</span><span style=color:#ae81ff>19</span>
 </span></span><span style=display:flex><span>dtoverlay<span style=color:#f92672>=</span>spi0-hw-cs
-</span></span></code></pre></div><p>Success-ish! Now, the logs show up in <code>dmesg</code> instead of nothing like before, but it still says <code>Wrong Wiring?</code></p><h2 id=abandonment>Abandonment</h2><p>This solution was abandoned because the <code>Wrong Wiring?</code> message was persistent and no solution could be found. The boards were designed to control the Talons with PWM as a fallback, so this approach will be used in the future.</p></section><nav class=post-nav>
-<a class=prev href=https://uwopus.github.io/blog/posts/mech1/><span>←</span><span>3D Printing First Prototype</span></a>
-<a class=next href=https://uwopus.github.io/blog/posts/main-board/><span>Main Board Initial Assembly</span><span>→</span></a>
-</nav></article></main><footer class=footer>
-<p>&copy; 2022 <a href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a></p><p>Powered by <a href=https://gohugo.io/ rel=noopener target=_blank>Hugo️️</a>️</p><p>
-<a href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Paper 5.1</a>
-</p></footer></body></html>
+</span></span></code></pre></div><p>Success-ish! Now, the logs show up in <code>dmesg</code> instead of nothing like before, but it still says <code>Wrong Wiring?</code></p><h2 id=abandonment>Abandonment</h2><p>This solution was abandoned because the <code>Wrong Wiring?</code> message was persistent and no solution could be found. The boards were designed to control the Talons with PWM as a fallback, so this approach will be used in the future.</p></section><nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+<a class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://uwopus.github.io/blog/posts/mech1/><span class=mr-1.5>←</span><span>3D Printing First Prototype</span></a>
+<a class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://uwopus.github.io/blog/posts/main-board/><span>Main Board Initial Assembly</span><span class=ml-1.5>→</span></a>
+</nav></article></main><footer class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60">
+<div class=mr-auto>
+&copy; 2023
+<a class=link href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a>
+</div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>Powered by Hugo️️</a>️
+<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>✎ Paper</a>
+</footer></body></html>

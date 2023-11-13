@@ -1,0 +1,71 @@
+<!doctype html><html class="not-ready lg:text-base" style=--bg:#faf8f1 lang=en-us>
+<head>
+<meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<title>Finding End Effector Position - Opus Build Blog: Autonomous Mural Painting Robot</title><meta name=theme-color>
+<meta name=description content="This math allows the robot to translate velocity requirements in the global coordinate frame of x and y to velocities of the ropes. We first defined two coordinate systems and gave names to the various names and angles in the diagram:
+Here, $X^C$ and $Y^C$ make up the canvas coordinate frame. This is intentionally chosen to be the same orientation as the coordinate system in images. $Y^C$ is chosen so its parallel to the gravity vector.">
+<meta name=author content="Opus Build Blog: Autonomous Mural Painting Robot">
+<link rel="preload stylesheet" as=style href=https://uwopus.github.io/blog/main.min.css>
+<link rel=preload as=image href=https://uwopus.github.io/blog/theme.png>
+<script defer src=https://uwopus.github.io/blog/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.css integrity=sha384-3UiQGuEI4TTMaFmGIZumfRPtfKQ3trwQE2JgosJxCnGmQpL/lJdjpcHkaaFwHlcI crossorigin=anonymous>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/katex.min.js integrity=sha384-G0zcxDFp5LWZtDuRMnBkk3EphCK1lhEf4UEyEM693ka574TZGwo4IWwS6QLzM/2t crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.7/dist/contrib/auto-render.min.js integrity=sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05 crossorigin=anonymous></script>
+<script>document.addEventListener("DOMContentLoaded",()=>renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1}))</script>
+<link rel=icon href=https://uwopus.github.io/blog/favicon.ico>
+<link rel=apple-touch-icon href=https://uwopus.github.io/blog/apple-touch-icon.png>
+<meta name=generator content="Hugo 0.93.3">
+<meta itemprop=name content="Finding End Effector Position">
+<meta itemprop=description content="This math allows the robot to translate velocity requirements in the global coordinate frame of x and y to velocities of the ropes. We first defined two coordinate systems and gave names to the various names and angles in the diagram:
+Here, $X^C$ and $Y^C$ make up the canvas coordinate frame. This is intentionally chosen to be the same orientation as the coordinate system in images. $Y^C$ is chosen so its parallel to the gravity vector."><meta itemprop=datePublished content="2022-03-04T22:15:51-05:00">
+<meta itemprop=dateModified content="2022-03-04T22:15:51-05:00">
+<meta itemprop=wordCount content="436">
+<meta itemprop=keywords content>
+<meta property="og:title" content="Finding End Effector Position">
+<meta property="og:description" content="This math allows the robot to translate velocity requirements in the global coordinate frame of x and y to velocities of the ropes. We first defined two coordinate systems and gave names to the various names and angles in the diagram:
+Here, $X^C$ and $Y^C$ make up the canvas coordinate frame. This is intentionally chosen to be the same orientation as the coordinate system in images. $Y^C$ is chosen so its parallel to the gravity vector.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://uwopus.github.io/blog/posts/position_math/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-03-04T22:15:51-05:00">
+<meta property="article:modified_time" content="2022-03-04T22:15:51-05:00">
+<meta name=twitter:card content="summary">
+<meta name=twitter:title content="Finding End Effector Position">
+<meta name=twitter:description content="This math allows the robot to translate velocity requirements in the global coordinate frame of x and y to velocities of the ropes. We first defined two coordinate systems and gave names to the various names and angles in the diagram:
+Here, $X^C$ and $Y^C$ make up the canvas coordinate frame. This is intentionally chosen to be the same orientation as the coordinate system in images. $Y^C$ is chosen so its parallel to the gravity vector.">
+<link rel=canonical href=https://uwopus.github.io/blog/posts/position_math/>
+</head><body class="text-black duration-200 ease-out dark:text-white">
+<header class="mx-auto flex h-[4.5rem] max-w-3xl px-8 lg:justify-center">
+<div class="relative z-50 mr-auto flex items-center">
+<a class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold" href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a>
+<div class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 -mr-8 flex h-[4.5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf8f1".replace(/"/g,''),setDark=e=>{metaTheme.setAttribute("content",e?"#000":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script>
+<div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none">
+</div></header><main class="prose prose-neutral relative mx-auto min-h-[calc(100%-9rem)] max-w-3xl px-8 pb-16 pt-12 dark:prose-invert">
+<article>
+<header class=mb-16>
+<h1 class="!my-0 pb-2.5">Finding End Effector Position</h1><div class="text-sm antialiased opacity-60">
+<time>Mar 4, 2022</time>
+</div></header><section><p>This math allows the robot to translate velocity requirements in the global coordinate frame of x and y to velocities of the ropes. We first defined two coordinate systems and gave names to the various names and angles in the diagram:</p><p><img src=/blog/images/math/diagram.png alt=diagram></p><p>Here, $X^C$ and $Y^C$ make up the canvas coordinate frame. This is intentionally chosen to be the same orientation as the <a href=https://www.mathworks.com/help/images/image-coordinate-systems.html>coordinate system in images</a>. $Y^C$ is chosen so its parallel to the gravity vector. $X^R$ and $Y^R$ define the coordinate system that moves with the robot, located at the robot&rsquo;s centre of gravity.</p><p>There are a few values that are constant and known beforehand:</p><ul>
+<li>$r_1$: The distance between the pegs that Opus is hanging off of</li><li>$r_3$: The distance between the apertures where the rope comes out of on Opus</li><li>$r_L$, $r_R$: The vector between the centre of gravity and the apertures defined in the $X^RY^R$ frame</li><li>$F_g$: The force of gravity</li></ul><p>$\alpha$ is the angle of the robot&rsquo;s frame relative to the wall&rsquo;s frame. $\alpha$ is typically not known, but we designed Opus with an IMU. This allowed us to use an Attitude Heading Reference System Kalman Filter (AHRS) to get stable $\alpha$ values from the device. We use the output of the AHRS Kalman Filter as a <em>known</em> $\alpha$ value.</p><p>For a given location in the $X^C$, $Y^C$ frame, we need to find the lengths $r_2$ and $r_4$ that result in it.</p><p>This looks suspiciously like a four bar linkage, with the added constraint that beams $r_2$ and $r_4$ <em>cannot</em> be in compression, since they are cables. Therefore, the four-bar linkage governing formula from <em>Fundamentals of Machine Theory and Mechanisms</em> was used as a starting point, and we came to the following formulae:</p><p><strong>Givens:</strong></p><p>Due to the $y$ position being the same on the anchors: $\theta_1 = 0$</p><p><strong>Formula:</strong></p><p>To compute $\theta_2$ and $\theta_4$, we use the AHRS determined angle $\theta_1$ and the current lengths of the cables ($r_2$, $r_4$).</p><p>$$
+\begin{align}
+x_3 &= r_1\cos{\theta_1} - r_3\cos{\alpha} \\
+y_3 &= r_1\sin{\theta_1} - r_3\sin{\alpha}
+\end{align}
+$$</p><p>$$
+% \DelcareMathOperator{\atantwo}{atan2}
+\begin{align}
+\theta_4 &= \text{atan2}(y_3, x_3) + \arccos\left({\frac{x_3^2 + y_3^2 + r_4^2 - r_2^2}{-2r_4\sqrt{x_3^2 + y_3^2}}}\right) \\
+\theta_2 &= \text{atan2}\left(\frac{y_3 + r_4\sin\theta_4}{r_2}, \frac{x_3 + r_4\cos\theta_4}{r_2}\right)
+\end{align}
+$$</p><p>With $\theta_2$, we can get the position of the left spool exit point quite easily:
+$$\vec{S_L} = r_2\begin{bmatrix} \cos{\theta_2} \\ -\sin{\theta_2} \end{bmatrix} $$</p><p>Finally, the end effector position can be determined by rotating the vector $\vec{V_E^R}$ that is defined in the robot&rsquo;s coordinate frame by $-\alpha$ radians, and adding it to $\vec{S_L}$:</p><p>$$ \vec{V_E^C} = \vec{S_L} + \begin{bmatrix} \cos\left({-\alpha}\right) & -\sin\left({-\alpha}\right) \\ \sin\left({-\alpha}\right) & \cos\left({-\alpha}\right) \end{bmatrix} \vec{V_E^R} $$</p></section><nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]">
+<a class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://uwopus.github.io/blog/posts/final-post/><span class=mr-1.5>←</span><span>Conclusion & Symposium!</span></a>
+<a class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://uwopus.github.io/blog/posts/prototypetest2/><span>Prototype Test 2</span><span class=ml-1.5>→</span></a>
+</nav></article></main><footer class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60">
+<div class=mr-auto>
+&copy; 2023
+<a class=link href=https://uwopus.github.io/blog/>Opus Build Blog: Autonomous Mural Painting Robot</a>
+</div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>Powered by Hugo️️</a>️
+<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>✎ Paper</a>
+</footer></body></html>
